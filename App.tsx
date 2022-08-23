@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
-import { FileSystemUploadType, StorageAccessFramework } from "expo-file-system";
+import { FileSystemUploadType } from "expo-file-system";
 import Video from "./components/Video";
 
 export default function App() {
@@ -28,10 +28,9 @@ export default function App() {
 
     if (!res.cancelled) {
       const info = await FileSystem.getInfoAsync(res.uri);
-      const uri = res.uri.split(":///").join("//");
       console.log("🚀 ~ file: App.tsx ~ line 31 ~ searchVideo ~ info", info);
 
-      setVideo(uri);
+      setVideo(res.uri);
     }
   };
 
