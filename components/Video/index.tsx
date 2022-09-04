@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, FC } from "react";
 import { View } from "react-native";
 import { Video as VideoPlayer } from "expo-av";
 
-const Video = ({ uri }: { uri: string }) => {
+const Video: FC<{ uri: string }> = ({ uri }) => {
   const videoRef = useRef(null);
   return (
     <View>

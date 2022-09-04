@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { FileSystemUploadType } from "expo-file-system";
@@ -27,9 +27,6 @@ export default function App() {
     });
 
     if (!res.cancelled) {
-      const info = await FileSystem.getInfoAsync(res.uri);
-      console.log("🚀 ~ file: App.tsx ~ line 31 ~ searchVideo ~ info", info);
-
       setVideo(res.uri);
     }
   };
@@ -42,7 +39,7 @@ export default function App() {
       };
 
       const res = await FileSystem.uploadAsync(
-        "https://aa09-190-211-90-90.ngrok.io/uploadVideo",
+        "https://your-api.com/uploadVideo",
         uri,
         {
           httpMethod: "POST",
@@ -56,10 +53,6 @@ export default function App() {
         return res;
       }
     } catch (error) {
-      console.log(
-        "🚀 ~ file: App.tsx ~ line 49 ~ handelUploade ~ error",
-        error
-      );
       Alert.alert("Somthing is wrong");
     }
   };
@@ -68,18 +61,18 @@ export default function App() {
     <View style={styles.container}>
       {video && <Video uri={video} />}
 
-      <Pressable
+      <TouchableOpacity
         onPress={() => (!video ? getPermissions() : handelUploade(video))}
         style={[styles.primaryButton, { marginVertical: "3%" }]}
       >
         <Text style={styles.buttonText}>
           {!video ? "Select video" : "Upload video"}
         </Text>
-      </Pressable>
+      </TouchableOpacity>
       {video && (
-        <Pressable onPress={searchVideo} style={styles.secondaryButton}>
+        <TouchableOpacity onPress={searchVideo} style={styles.secondaryButton}>
           <Text style={styles.buttonText}>Select other video</Text>
-        </Pressable>
+        </TouchableOpacity>
       )}
     </View>
   );
